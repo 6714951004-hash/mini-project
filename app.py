@@ -6,8 +6,12 @@ import os
 st.set_page_config(page_title="AI Travel Planner", page_icon="✈️")
 
 # ใส่ API Key (ใน Render เราจะตั้งเป็น Environment Variable)
-api_key = st.sidebar.text_input("Enter Gemini API Key", type="password")
+api_key = os.environ.get("GEMINI_API_KEY") or st.secrets.get("GEMINI_API_KEY")
 
+if not api_key:
+    st.warning("⚠️ โปรดระบุ Gemini API Key ใน Environment Variable หรือ Sidebar เพื่อเริ่มต้นใช้งาน")
+    st.stop() # หยุดการทำงานของโค้ดที่เหลือจนกว่าจะมี Key
+    
 if api_key:
     genai.configure(api_key=api_key)
     model = genai.GenerativeModel('gemini-1.5-flash')
