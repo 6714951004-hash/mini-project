@@ -32,7 +32,7 @@ if st.button("Generate My Plan! ✨"):
     
     try:
         # ใช้โมเดล 2.0 ล่าสุด
-        model = genai.GenerativeModel('gemini-2.0-flash-exp')
+        model = genai.GenerativeModel('gemini-1.5-flash')
         
         with st.spinner('กำลังคิดแผนเที่ยว...'):
             response = model.generate_content(prompt)
